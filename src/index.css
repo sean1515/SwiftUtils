@@ -84,3 +84,15 @@ button:focus-visible {
   scrollbar-width: thin;
   scrollbar-color: hsl(0deg 0% 50% / 0.4) transparent;
 }
+
+button {
+  outline: none !important;
+  border: none !important;
+}
+
+button:focus,
+button:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
