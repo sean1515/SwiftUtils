@@ -38,7 +38,6 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import './Layout.scss';
-import { Footer } from '../Footer/Footer';
 
 interface LayoutProps {
   onToggleTheme: () => void;
@@ -48,8 +47,8 @@ const Layout: React.FC<LayoutProps> = ({ onToggleTheme }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [guidesAnchor, setGuidesAnchor] = useState<null | HTMLElement>(null);
-  const [toolsAnchor, setToolsAnchor] = useState<null | HTMLElement>(null);
+  const [, setGuidesAnchor] = useState<null | HTMLElement>(null);
+  const [, setToolsAnchor] = useState<null | HTMLElement>(null);
   const [openGuides, setOpenGuides] = useState(false);
   const [openTools, setOpenTools] = useState(false);
   const [guidesHover, setGuidesHover] = useState(false);

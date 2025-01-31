@@ -38,15 +38,11 @@ export const trackInteraction = (
 };
 
 // Track errors
-export const trackError = (
-  errorMessage: string,
-  errorCode?: string,
-  componentName?: string
-) => {
+export const trackError = (errorMessage: string, errorCode?: string, componentName?: string) => {
   trackEvent('error_occurred', {
     error_message: errorMessage,
-    error_code: errorCode,
-    component_name: componentName,
+    error_code: errorCode || 'unknown',
+    component_name: componentName || 'unknown',
     event_category: 'error',
   });
-}; 
+};

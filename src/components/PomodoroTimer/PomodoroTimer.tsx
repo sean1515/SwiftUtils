@@ -4,14 +4,9 @@ import {
   Typography,
   Paper,
   Stack,
-  Button,
   IconButton,
   CircularProgress,
   TextField,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
 } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
@@ -35,6 +30,7 @@ const PomodoroTimer: React.FC = () => {
   const [pomodorosCompleted, setPomodorosCompleted] = useState(0);
 
   useEffect(() => {
+    // @ts-expect-error NodeJS.Timeout is not defined in the global scope
     let timer: NodeJS.Timeout;
 
     if (isRunning && timeLeft > 0) {
@@ -55,7 +51,7 @@ const PomodoroTimer: React.FC = () => {
     if (mode === 'work') {
       const newPomodorosCompleted = pomodorosCompleted + 1;
       setPomodorosCompleted(newPomodorosCompleted);
-      
+
       if (newPomodorosCompleted % settings.pomodorosUntilLongBreak === 0) {
         setTimeLeft(settings.longBreakDuration * 60);
       } else {
@@ -66,7 +62,7 @@ const PomodoroTimer: React.FC = () => {
       setTimeLeft(settings.workDuration * 60);
       setMode('work');
     }
-    
+
     setIsRunning(false);
     trackInteraction('timer_complete', 'PomodoroTimer', { mode });
   };
@@ -90,7 +86,8 @@ const PomodoroTimer: React.FC = () => {
     return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
-  const progress = (timeLeft / (mode === 'work' ? settings.workDuration * 60 : settings.breakDuration * 60)) * 100;
+  const progress =
+    (timeLeft / (mode === 'work' ? settings.workDuration * 60 : settings.breakDuration * 60)) * 100;
 
   return (
     <Box sx={{ p: 3 }}>
@@ -159,7 +156,10 @@ const PomodoroTimer: React.FC = () => {
                 type="number"
                 value={settings.workDuration}
                 onChange={(e) =>
-                  setSettings({ ...settings, workDuration: Math.max(1, parseInt(e.target.value) || 1) })
+                  setSettings({
+                    ...settings,
+                    workDuration: Math.max(1, parseInt(e.target.value) || 1),
+                  })
                 }
                 fullWidth
               />
@@ -168,7 +168,10 @@ const PomodoroTimer: React.FC = () => {
                 type="number"
                 value={settings.breakDuration}
                 onChange={(e) =>
-                  setSettings({ ...settings, breakDuration: Math.max(1, parseInt(e.target.value) || 1) })
+                  setSettings({
+                    ...settings,
+                    breakDuration: Math.max(1, parseInt(e.target.value) || 1),
+                  })
                 }
                 fullWidth
               />
@@ -204,4 +207,4 @@ const PomodoroTimer: React.FC = () => {
   );
 };
 
-export default PomodoroTimer; 
+export default PomodoroTimer;
