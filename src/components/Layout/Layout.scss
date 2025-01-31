@@ -1,0 +1,36 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+
+  &HeaderLink {
+    text-decoration: none;
+  }
+
+  &Container {
+    flex: 1;
+    padding: 0;
+    background-color: var(--mui-palette-background-paper);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.layoutHeaderLink {
+  &:hover {
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+}
+
+.layoutContainer {
+  flex: 1;
+  padding: 0;
+  background-color: var(--mui-palette-background-paper);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+} 
