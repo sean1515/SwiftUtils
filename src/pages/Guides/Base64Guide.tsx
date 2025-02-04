@@ -19,6 +19,7 @@ const Base64Guide: React.FC = () => {
         p: { xs: 2, md: 4 },
         maxWidth: 1200,
         mx: 'auto',
+        overflowX: 'hidden',
         '& h4': {
           fontWeight: 600,
           mt: 4,
@@ -300,6 +301,7 @@ const Base64Guide: React.FC = () => {
                 wordBreak: 'break-all',
                 '& div': {
                   overflowWrap: 'break-word',
+                  maxWidth: '100%',
                 },
               }}
             >
@@ -324,6 +326,7 @@ const Base64Guide: React.FC = () => {
                 wordBreak: 'break-all',
                 '& div': {
                   overflowWrap: 'break-word',
+                  maxWidth: '100%',
                 },
               }}
             >
@@ -355,9 +358,12 @@ const Base64Guide: React.FC = () => {
             my: 2,
             bgcolor: 'action.hover',
             borderRadius: 1,
+            overflowX: 'auto',
             '& code': {
               display: 'block',
-              whiteSpace: 'pre-wrap',
+              whiteSpace: 'pre',
+              overflowX: 'auto',
+              maxWidth: '100%',
             },
           }}
         >
