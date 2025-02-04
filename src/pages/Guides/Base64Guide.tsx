@@ -65,15 +65,21 @@ const Base64Guide: React.FC = () => {
           Table of Contents
         </Typography>
         <List dense>
-          {['What is Base64?', 'How It Works', 'Common Uses', 'Examples', 'Specifications'].map(
-            (item) => (
-              <ListItem key={item} sx={{ py: 0.5 }}>
-                <Link href={`#${item.replace(/\s+/g, '-').toLowerCase()}`} color="inherit">
-                  <ListItemText primary={item} />
-                </Link>
-              </ListItem>
-            )
-          )}
+          {[
+            'What is Base64?',
+            'How It Works',
+            'Common Uses',
+            'Advantages & Disadvantages',
+            'Examples',
+            'Implementation',
+            'Specifications',
+          ].map((item) => (
+            <ListItem key={item} sx={{ py: 0.5 }}>
+              <Link href={`#${item.replace(/\s+/g, '-').toLowerCase()}`} color="inherit">
+                <ListItemText primary={item} />
+              </Link>
+            </ListItem>
+          ))}
         </List>
       </Paper>
 
@@ -157,25 +163,114 @@ const Base64Guide: React.FC = () => {
         <Typography variant="h4" component="h2" gutterBottom>
           Common Applications
         </Typography>
-        <Box
-          sx={{
-            display: 'flex',
-            gap: { xs: 1, md: 2 },
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-          }}
-        >
-          {[
-            'Embedding images in HTML/CSS',
-            'JSON/XML data transfer',
-            'URL-safe data storage',
-            'Basic data obfuscation',
-            'Email attachments',
-            'Cryptographic digests',
-          ].map((use) => (
-            <Chip key={use} label={use} variant="outlined" />
-          ))}
+        <Typography paragraph>
+          Base64 encoding is widely used in various scenarios where binary data needs to be
+          transmitted through text-based channels. Here are some common applications:
+        </Typography>
+        <List>
+          <ListItem>
+            <ListItemText
+              primary="Data URIs in Web Development"
+              secondary="Embedding images, fonts, or other binary assets directly in HTML/CSS using the data URI scheme"
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemText
+              primary="Email Attachments"
+              secondary="MIME encoding for sending binary files through email systems that only support ASCII characters"
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemText
+              primary="API Communication"
+              secondary="Transferring binary data in JSON payloads or other text-based protocols"
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemText
+              primary="Digital Signatures"
+              secondary="Encoding binary cryptographic signatures in a text-safe format"
+            />
+          </ListItem>
+        </List>
+
+        <Box sx={{ mt: 2 }}>
+          <Box
+            sx={{
+              display: 'flex',
+              gap: { xs: 1, md: 2 },
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+            }}
+          >
+            {[
+              'Embedding images in HTML/CSS',
+              'JSON/XML data transfer',
+              'URL-safe data storage',
+              'Basic data obfuscation',
+              'Email attachments',
+              'Cryptographic digests',
+            ].map((use) => (
+              <Chip key={use} label={use} variant="outlined" />
+            ))}
+          </Box>
         </Box>
+      </section>
+
+      <Divider sx={{ my: 4 }} />
+
+      <section id="advantages-disadvantages">
+        <Typography variant="h4" component="h2" gutterBottom>
+          Advantages & Disadvantages
+        </Typography>
+
+        <Typography variant="h5" component="h3" gutterBottom>
+          Advantages
+        </Typography>
+        <List>
+          <ListItem>
+            <ListItemText
+              primary="Text-Safe Transmission"
+              secondary="Ensures binary data can be safely transmitted through text-based protocols without corruption"
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemText
+              primary="Universal Support"
+              secondary="Widely supported across different platforms and programming languages"
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemText
+              primary="URL Safety"
+              secondary="Can be made URL-safe with minor modifications (using '-' and '_' instead of '+' and '/')"
+            />
+          </ListItem>
+        </List>
+
+        <Typography variant="h5" component="h3" sx={{ mt: 3 }} gutterBottom>
+          Disadvantages
+        </Typography>
+        <List>
+          <ListItem>
+            <ListItemText
+              primary="Increased Size"
+              secondary="Encoded data is about 33% larger than the original binary data"
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemText
+              primary="Processing Overhead"
+              secondary="Requires encoding and decoding steps, which consume CPU resources"
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemText
+              primary="Not Encryption"
+              secondary="Does not provide security or encryption, just encoding"
+            />
+          </ListItem>
+        </List>
       </section>
 
       <Divider sx={{ my: 4 }} />
@@ -241,6 +336,69 @@ const Base64Guide: React.FC = () => {
             </Box>
           </Paper>
         </Box>
+      </section>
+
+      <Divider sx={{ my: 4 }} />
+
+      <section id="implementation">
+        <Typography variant="h4" component="h2" gutterBottom>
+          Implementation
+        </Typography>
+
+        <Typography variant="h5" component="h3" gutterBottom>
+          JavaScript/TypeScript Example
+        </Typography>
+        <Paper
+          elevation={0}
+          sx={{
+            p: 2,
+            my: 2,
+            bgcolor: 'action.hover',
+            borderRadius: 1,
+            '& code': {
+              display: 'block',
+              whiteSpace: 'pre-wrap',
+            },
+          }}
+        >
+          <code>{`// Encoding
+const text = 'Hello, World!';
+const encoded = btoa(text);
+console.log(encoded); // "SGVsbG8sIFdvcmxkIQ=="
+
+// Decoding
+const decoded = atob(encoded);
+console.log(decoded); // "Hello, World!"
+
+// Handling Unicode
+const unicodeText = '👋 Hello';
+const encodedUnicode = btoa(unescape(encodeURIComponent(unicodeText)));
+const decodedUnicode = decodeURIComponent(escape(atob(encodedUnicode)));`}</code>
+        </Paper>
+
+        <Typography variant="h5" component="h3" sx={{ mt: 3 }} gutterBottom>
+          Common Pitfalls
+        </Typography>
+        <List>
+          <ListItem>
+            <ListItemText
+              primary="Unicode Handling"
+              secondary="Basic Base64 encoding doesn't handle Unicode characters directly. Use encodeURIComponent/decodeURIComponent for Unicode support."
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemText
+              primary="Line Length"
+              secondary="Some implementations wrap Base64 output at 76 characters. Consider line breaks when processing encoded data."
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemText
+              primary="Padding Characters"
+              secondary="The '=' padding at the end is required for proper decoding. Don't remove it unless your implementation specifically handles unpadded Base64."
+            />
+          </ListItem>
+        </List>
       </section>
 
       <Divider sx={{ my: 4 }} />

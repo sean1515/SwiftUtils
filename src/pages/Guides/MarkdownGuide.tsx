@@ -61,6 +61,7 @@ const MarkdownGuide: React.FC = () => {
         p: { xs: 2, md: 4 },
         maxWidth: 1200,
         mx: 'auto',
+        width: '100%',
         '& h4': {
           fontWeight: 600,
           mt: 4,
@@ -139,6 +140,18 @@ const MarkdownGuide: React.FC = () => {
           be on writing rather than formatting.
         </Typography>
         <Typography paragraph>
+          One of the biggest advantages of Markdown is its portability. Since it's plain text, it
+          can be edited in any text editor and is platform-independent. It's also future-proof -
+          even if the application you're using stops working, your Markdown files will still be
+          readable as plain text.
+        </Typography>
+        <Typography paragraph>
+          Markdown has become the de facto standard for documentation in the software industry. It's
+          used by platforms like GitHub, GitLab, Reddit, and many static site generators. Its
+          widespread adoption means that learning Markdown is a valuable skill for developers,
+          technical writers, and content creators.
+        </Typography>
+        <Typography paragraph>
           The philosophy behind Markdown is that formatted text should be readable in its source
           form, without tags or formatting instructions getting in the way. This makes it ideal for:
         </Typography>
@@ -157,34 +170,54 @@ const MarkdownGuide: React.FC = () => {
         <Typography variant="h4" component="h2" gutterBottom>
           Basic Syntax
         </Typography>
+        <Typography paragraph sx={{ mb: 3 }}>
+          Markdown's basic syntax is designed to be intuitive and easy to remember. These are the
+          fundamental elements you'll use most often. The symbols used are chosen to visually
+          represent what they do - for example, asterisks around text make it *bold* because it
+          stands out, just like bold text.
+        </Typography>
 
-        <Table sx={{ mb: 4 }}>
-          <TableHead>
-            <TableRow>
-              <TableCell>Element</TableCell>
-              <TableCell>Syntax</TableCell>
-              <TableCell>Example</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {[
-              ['Heading 1', '# Heading', '# Main Title'],
-              ['Heading 2', '## Heading', '## Section Title'],
-              ['Bold', '**text**', '**Important**'],
-              ['Italic', '*text*', '*Emphasis*'],
-              ['Link', '[text](url)', '[Google](https://google.com)'],
-              ['Image', '![alt](url)', '![Logo](logo.png)'],
-              ['List', '- Item', '- First item\n- Second item'],
-              ['Code', '`code`', '`const x = 5`'],
-            ].map(([element, syntax, example]) => (
-              <TableRow key={element as string}>
-                <TableCell>{element}</TableCell>
-                <TableCell sx={{ fontFamily: 'monospace' }}>{syntax}</TableCell>
-                <TableCell sx={{ fontFamily: 'monospace' }}>{example}</TableCell>
+        <Box sx={{ overflowX: 'auto', width: '100%' }}>
+          <Table
+            sx={{
+              mb: 4,
+              '& td, & th': {
+                minWidth: { xs: '100px', sm: 'auto' },
+                p: { xs: 1, sm: 2 },
+                fontSize: { xs: '0.875rem', sm: '1rem' },
+              },
+              '& td:last-child, & th:last-child': {
+                pr: 3,
+              },
+            }}
+          >
+            <TableHead>
+              <TableRow>
+                <TableCell>Element</TableCell>
+                <TableCell>Syntax</TableCell>
+                <TableCell>Example</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHead>
+            <TableBody>
+              {[
+                ['Heading 1', '# Heading', '# Main Title'],
+                ['Heading 2', '## Heading', '## Section Title'],
+                ['Bold', '**text**', '**Important**'],
+                ['Italic', '*text*', '*Emphasis*'],
+                ['Link', '[text](url)', '[Google](https://google.com)'],
+                ['Image', '![alt](url)', '![Logo](logo.png)'],
+                ['List', '- Item', '- First item\n- Second item'],
+                ['Code', '`code`', '`const x = 5`'],
+              ].map(([element, syntax, example]) => (
+                <TableRow key={element as string}>
+                  <TableCell>{element}</TableCell>
+                  <TableCell sx={{ fontFamily: 'monospace' }}>{syntax}</TableCell>
+                  <TableCell sx={{ fontFamily: 'monospace' }}>{example}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Box>
       </section>
 
       <Divider sx={{ my: 4 }} />
@@ -193,8 +226,30 @@ const MarkdownGuide: React.FC = () => {
         <Typography variant="h4" component="h2" gutterBottom>
           Extended Syntax
         </Typography>
+        <Typography paragraph sx={{ mb: 3 }}>
+          While basic Markdown syntax covers most common formatting needs, many Markdown processors
+          support additional features. These extended syntax elements provide more formatting
+          options for complex documents. Note that not all Markdown applications support these
+          elements, so check your specific platform's documentation.
+        </Typography>
 
-        <Box sx={{ '& h5': { mt: 3 } }}>
+        <Box
+          sx={{
+            '& h5': { mt: 3 },
+            '& table': {
+              display: 'block',
+              overflowX: 'auto',
+              width: '100%',
+              borderCollapse: 'collapse',
+              '& td, & th': {
+                minWidth: '150px',
+                p: 1,
+                borderBottom: '1px solid',
+                borderColor: 'divider',
+              },
+            },
+          }}
+        >
           <Typography variant="h5">Tables</Typography>
           <ReactMarkdown>{`
 | Syntax | Description |
@@ -233,10 +288,22 @@ Here's a sentence with a footnote. [^1]
         <Typography variant="h4" component="h2" gutterBottom>
           Live Example
         </Typography>
+        <Typography paragraph sx={{ mb: 3 }}>
+          The best way to learn Markdown is to experiment with it. Below is a comprehensive example
+          showing various Markdown elements and how they are rendered. Try copying this example and
+          modifying it to see how the changes affect the output.
+        </Typography>
 
-        <Grid container spacing={4}>
+        <Grid container spacing={{ xs: 2, md: 4 }}>
           <Grid item xs={12} md={6}>
-            <Paper elevation={0} sx={{ p: 2, border: '1px solid', borderColor: 'divider' }}>
+            <Paper
+              elevation={0}
+              sx={{
+                p: 2,
+                border: '1px solid',
+                borderColor: 'divider',
+              }}
+            >
               <Typography variant="h6" gutterBottom>
                 Markdown Input
               </Typography>
@@ -244,10 +311,13 @@ Here's a sentence with a footnote. [^1]
                 component="pre"
                 sx={{
                   whiteSpace: 'pre-wrap',
+                  wordBreak: 'break-word',
                   fontFamily: 'monospace',
                   p: 2,
                   bgcolor: 'action.hover',
                   borderRadius: 1,
+                  overflow: 'auto',
+                  maxWidth: '100%',
                 }}
               >
                 {markdownExample}
@@ -255,11 +325,34 @@ Here's a sentence with a footnote. [^1]
             </Paper>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Paper elevation={0} sx={{ p: 2, border: '1px solid', borderColor: 'divider' }}>
+            <Paper
+              elevation={0}
+              sx={{
+                p: 2,
+                border: '1px solid',
+                borderColor: 'divider',
+              }}
+            >
               <Typography variant="h6" gutterBottom>
                 Rendered Output
               </Typography>
-              <Box sx={{ p: 2, border: '1px solid #eee', borderRadius: 1 }}>
+              <Box
+                sx={{
+                  p: 2,
+                  border: '1px solid #eee',
+                  borderRadius: 1,
+                  '& img': { maxWidth: '100%' },
+                  '& table': {
+                    display: 'block',
+                    overflowX: 'auto',
+                    maxWidth: '100%',
+                  },
+                  '& pre': {
+                    overflowX: 'auto',
+                    maxWidth: '100%',
+                  },
+                }}
+              >
                 <ReactMarkdown>{markdownExample}</ReactMarkdown>
               </Box>
             </Paper>
@@ -272,6 +365,16 @@ Here's a sentence with a footnote. [^1]
       <section id="specifications">
         <Typography variant="h4" component="h2" gutterBottom>
           Specifications & Resources
+        </Typography>
+        <Typography paragraph>
+          While Markdown started as a simple tool, it has evolved into various flavors and
+          implementations. These specifications help ensure consistency across different platforms
+          and tools. The following resources will help you deepen your understanding of Markdown:
+        </Typography>
+        <Typography paragraph sx={{ mb: 2 }}>
+          When learning Markdown, it's recommended to start with the CommonMark specification as
+          your foundation, then explore GitHub Flavored Markdown (GFM) which adds useful features
+          like tables, task lists, and automatic URL linking.
         </Typography>
         <List>
           <ListItem>
