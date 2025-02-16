@@ -16,21 +16,30 @@ const Base64Guide: React.FC = () => {
   return (
     <Box
       sx={{
-        p: { xs: 2, md: 4 },
+        p: { xs: 1, sm: 2, md: 4 },
         maxWidth: 1200,
         mx: 'auto',
+        width: '100%',
+        boxSizing: 'border-box',
         overflowX: 'hidden',
+        overflowY: 'auto',
+        '& section': {
+          width: '100%',
+          overflowX: 'auto',
+          overflowY: 'hidden',
+        },
         '& h4': {
           fontWeight: 600,
-          mt: 4,
+          mt: 3,
           mb: 2,
           color: 'primary.main',
-          fontSize: { xs: '1.5rem', md: '1.75rem' },
+          fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' },
         },
         '& h5': {
           fontWeight: 500,
-          mt: 3,
+          mt: 2,
           mb: 1.5,
+          fontSize: { xs: '1.1rem', sm: '1.25rem' },
         },
       }}
     >
@@ -42,10 +51,10 @@ const Base64Guide: React.FC = () => {
           fontWeight: 700,
           display: 'flex',
           alignItems: 'center',
-          gap: 2,
-          fontSize: { xs: '1.8rem', md: '2.2rem' },
-          flexDirection: { xs: 'column', md: 'row' },
-          textAlign: { xs: 'center', md: 'left' },
+          gap: { xs: 1, sm: 2 },
+          fontSize: { xs: '1.5rem', sm: '1.8rem', md: '2.2rem' },
+          flexDirection: { xs: 'column', sm: 'row' },
+          textAlign: { xs: 'center', sm: 'left' },
         }}
       >
         <CodeIcon fontSize="large" />
@@ -55,8 +64,8 @@ const Base64Guide: React.FC = () => {
       <Paper
         elevation={0}
         sx={{
-          p: 3,
-          mb: 4,
+          p: { xs: 2, sm: 3 },
+          mb: 3,
           border: '1px solid',
           borderColor: 'divider',
           borderRadius: 2,
@@ -65,7 +74,14 @@ const Base64Guide: React.FC = () => {
         <Typography variant="h5" component="h2" gutterBottom>
           Table of Contents
         </Typography>
-        <List dense>
+        <List
+          dense
+          sx={{
+            '& .MuiListItem-root': {
+              px: { xs: 1, sm: 2 },
+            },
+          }}
+        >
           {[
             'What is Base64?',
             'How It Works',
@@ -105,7 +121,7 @@ const Base64Guide: React.FC = () => {
         </Typography>
       </section>
 
-      <Divider sx={{ my: 4 }} />
+      <Divider sx={{ my: { xs: 3, sm: 4 } }} />
 
       <section id="how-it-works">
         <Typography variant="h4" component="h2" gutterBottom>
@@ -142,15 +158,21 @@ const Base64Guide: React.FC = () => {
         <Paper
           elevation={0}
           sx={{
-            p: 2,
-            my: 2,
+            p: { xs: 1.5, sm: 2 },
+            my: { xs: 1, sm: 2 },
             bgcolor: 'action.hover',
             borderRadius: 1,
             overflowX: 'auto',
+            maxWidth: '100%',
             '& code': {
-              wordBreak: 'break-all',
-              whiteSpace: 'pre-wrap',
+              fontSize: { xs: '0.75rem', sm: '0.85rem' },
+              whiteSpace: 'pre',
               display: 'block',
+              width: '100%',
+              overflowX: 'auto',
+              '&::-webkit-scrollbar': {
+                height: '4px',
+              },
             },
           }}
         >
@@ -158,7 +180,7 @@ const Base64Guide: React.FC = () => {
         </Paper>
       </section>
 
-      <Divider sx={{ my: 4 }} />
+      <Divider sx={{ my: { xs: 3, sm: 4 } }} />
 
       <section id="common-uses">
         <Typography variant="h4" component="h2" gutterBottom>
@@ -199,9 +221,10 @@ const Base64Guide: React.FC = () => {
           <Box
             sx={{
               display: 'flex',
-              gap: { xs: 1, md: 2 },
+              gap: 1,
               flexWrap: 'wrap',
-              justifyContent: 'center',
+              justifyContent: 'flex-start',
+              mx: { xs: -1, sm: 0 },
             }}
           >
             {[
@@ -212,13 +235,22 @@ const Base64Guide: React.FC = () => {
               'Email attachments',
               'Cryptographic digests',
             ].map((use) => (
-              <Chip key={use} label={use} variant="outlined" />
+              <Chip
+                key={use}
+                label={use}
+                variant="outlined"
+                sx={{
+                  m: 0.5,
+                  fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                  height: { xs: 24, sm: 32 },
+                }}
+              />
             ))}
           </Box>
         </Box>
       </section>
 
-      <Divider sx={{ my: 4 }} />
+      <Divider sx={{ my: { xs: 3, sm: 4 } }} />
 
       <section id="advantages-disadvantages">
         <Typography variant="h4" component="h2" gutterBottom>
@@ -274,7 +306,7 @@ const Base64Guide: React.FC = () => {
         </List>
       </section>
 
-      <Divider sx={{ my: 4 }} />
+      <Divider sx={{ my: { xs: 3, sm: 4 } }} />
 
       <section id="examples">
         <Typography variant="h4" component="h2" gutterBottom>
@@ -285,9 +317,9 @@ const Base64Guide: React.FC = () => {
           display="grid"
           gridTemplateColumns={{
             xs: '1fr',
-            sm: 'repeat(auto-fit, minmax(250px, 1fr))',
+            sm: 'repeat(auto-fit, minmax(200px, 1fr))',
           }}
-          gap={3}
+          gap={2}
         >
           <Paper elevation={0} sx={{ p: 2, border: '1px solid', borderColor: 'divider' }}>
             <Typography variant="subtitle1" gutterBottom>
@@ -296,12 +328,13 @@ const Base64Guide: React.FC = () => {
             <Box
               component="div"
               fontFamily="monospace"
-              fontSize={14}
               sx={{
+                fontSize: { xs: 12, sm: 14 },
                 wordBreak: 'break-all',
                 '& div': {
                   overflowWrap: 'break-word',
                   maxWidth: '100%',
+                  py: 0.5,
                 },
               }}
             >
@@ -321,12 +354,13 @@ const Base64Guide: React.FC = () => {
             <Box
               component="div"
               fontFamily="monospace"
-              fontSize={14}
               sx={{
+                fontSize: { xs: 12, sm: 14 },
                 wordBreak: 'break-all',
                 '& div': {
                   overflowWrap: 'break-word',
                   maxWidth: '100%',
+                  py: 0.5,
                 },
               }}
             >
@@ -341,7 +375,7 @@ const Base64Guide: React.FC = () => {
         </Box>
       </section>
 
-      <Divider sx={{ my: 4 }} />
+      <Divider sx={{ my: { xs: 3, sm: 4 } }} />
 
       <section id="implementation">
         <Typography variant="h4" component="h2" gutterBottom>
@@ -407,7 +441,7 @@ const decodedUnicode = decodeURIComponent(escape(atob(encodedUnicode)));`}</code
         </List>
       </section>
 
-      <Divider sx={{ my: 4 }} />
+      <Divider sx={{ my: { xs: 3, sm: 4 } }} />
 
       <section id="specifications">
         <Typography variant="h4" component="h2" gutterBottom>
